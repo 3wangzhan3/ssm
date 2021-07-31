@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security
+						http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--扫描自定义认证类-->
+    <context:component-scan base-package="com.offcn.ssm.security" />
+
+    <!-- 放行 -->
+    <!--    <http pattern="/favicon.ico" security="none" />-->
+    <!--    <http pattern="css/**" security="none" />-->
+    <!--登录页面-->
+    <http pattern="/login.html" security="none" />
+    <!--注册页面-->
+    <http pattern="/reg.html" security="none" />
+    <http pattern="/js/jquery-3.4.1.min.js" security="none" />
+    <http pattern="/regist" security="none" />
+    <!--登录失败的页面-->
+    <http pattern="/error/error.html" security="none" />
+    <!--用户名重名处理-->
+    <http pattern="/checkUser" security="none" />
+
+    <!-- 拦截条件（设定访问身份） -->
+    <http use-expressions="false" >
+        <!--只有拥有ROLE_USER身份的用户才能登录成功，/**表示拦截当前路径及子路径，即所有内容-->
+        <!--可以有多个,用于分权限.不同的身份访问不同的资源-->
+<!--    老板的访问权限<intercept-url pattern="/boos/**" access="ROLE_BOOS" />-->
+        <intercept-url pattern="/**" access="ROLE_USER" />
+        <!--登录的页面-->                     <!--登录成功后跳转的页面-->                                         <!--登陆失败跳转的页面-->
+        <form-login login-page="/login.html" default-target-url="/index.html" always-use-default-target="true" authentication-failure-url="/error/error.html"/>
+        <!--关闭跨域攻击-->
+        <csrf disabled="true" />
+    </http>
+
+    <!--密码加密-->
+    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <!-- 身份认证,通过自定义认证类来完成登录 -->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userService">
+            <password-encoder ref="bcryptEncoder"></password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+   </beans:beans>

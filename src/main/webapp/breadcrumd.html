@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body ng-app="myApp" ng-controller="myController" ng-init="selectList(0)">
+<ol class="breadcrumb">
+    <li>
+        <a href="#" ng-click="setgrade(1);findByParentId(0)">顶级分类列表</a>
+    </li>
+    <li ng-if="grade>1">
+        <a href="#" ng-click="setgrade(2);findByParentId(1)">二级分类列表</a>
+    </li>
+    <li ng-if="grade>2">
+        <a href="#" ng-click="setgrade(3);findByParentId(2)">三级分类列表</a>
+    </li>
+    <table>
+        <tr>
+            <td>id</td>
+            <td>parent_id</td>
+            <td>name</td>
+            <td>type_id</td>
+        </tr>
+        <tr ng-if="grade==1" ng-repeat="entity in list">
+            <td>{{entity.id}}</td>
+            <td>{{entity.parent_id}}</td>
+            <td>{{entity.name}}</td>
+            <td>{{entity.type_id}}</td>
+        </tr>
+        <tr ng-if="grade==2" ng-repeat="entity in entity_1">
+            <td>{{entity.id}}</td>
+            <td>{{entity.parent_id}}</td>
+            <td>{{entity.name}}</td>
+            <td>{{entity.type_id}}</td>
+        </tr>
+        <tr ng-if="grade==3" ng-repeat="entity in entity_2 ">
+            <td>{{entity.id}}</td>
+            <td>{{entity.parent_id}}</td>
+            <td>{{entity.name}}</td>
+            <td>{{entity.type_id}}</td>
+        </tr>
+    </table>
+</ol>
+<script src="js/angular.min.js"></script>
+<script src="js/breadCrumd/breadController.js"></script>
+<script src="js/breadCrumd/breadService.js"></script>
+</body>
+</html>

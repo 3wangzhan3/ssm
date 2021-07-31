@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+    	table{
+    		border-collapse: collapse;
+    		margin: auto;
+    	}
+    	tr td{
+    		border:1px solid red;
+    	}
+        #a{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <span></span><br>
+    <table id="tr">
+    	<tr>
+    		<td>id</td>
+    		<td>username</td>
+    		<td>age</td>
+            <td>password</td>
+            <td>修改数据</td>
+            <td>删除数据</td>
+    	</tr>
+    </table>
+</body>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            /*页面填充数据*/
+        	$.ajax({
+        		url:"/list",
+        		type:"get",
+        		success:function(ret){
+        			for(var i=0;i<ret.length;i++){
+        				$("#tr").append("<tr>"+
+        								"<td>"+ret[i].id+"</td>"+
+        								"<td>"+ret[i].username+"</td>"+
+        								"<td>"+ret[i].age+"</td>"+
+                                        "<td>"+ret[i].password+"</td>"+
+                                        "<td id='a'><a href='#' class='update' >修改</a></td>"+
+                                        "<td id='a'><a href='#' class='delete' >删除</a></td>"+
+        								"</tr>");
+        				//在标签中无法给属性赋变量值，可以通过改变对象的属性来为节点的属性赋变量值
+        				document.getElementsByClassName("delete")[i].href="/delete?id="+ret[i].id;
+        				//修改个人信息，简单理解：就是为a标签的href赋值
+						document.getElementsByClassName("update")[i].href="/upd.html?id="+ret[i].id;
+        			}
+        		}
+        	});
+            /*获取当前登录的用户名*/
+            $.ajax({
+                url:"/getUsername",
+                type:"get",
+                dataType:"json",
+                success:function (response) {
+                    $("span").text(response);
+                    console.log(response);
+                }
+            })
+        })
+    </script>
+</html>

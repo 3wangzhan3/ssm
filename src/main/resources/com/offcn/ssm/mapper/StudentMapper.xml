@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offcn.ssm.mapper.StudentMapper">
+
+    <select id="findAll" resultType="student">
+        select * from student
+    </select>
+
+    <select id="getOne" resultType="student">
+        select * from student where id=#{id}
+    </select>
+
+    <insert id="regist">
+        insert into student values(null,#{username},#{age},#{password})
+    </insert>
+
+    <delete id="delete" >
+        delete from student where id=#{id}
+    </delete>
+
+    <update id="update" >
+        update student set username=#{username},age=#{age},password=#{password} where id=#{id}
+    </update>
+
+    <select id="findByUsername" resultType="student">
+        select * from student where username = #{username}
+    </select>
+
+    <select id="checkUser" resultType="java.lang.Integer">
+        select count(1) from student where username = #{username}
+    </select>
+
+    <select id="getEntity" resultType="breadcrumd">
+        select * from table_1
+    </select>
+    <select id="getEntity1" resultType="breadcrumd">
+        select * from table_2 where 
+    </select>
+    <select id="getEntity2" resultType="breadcrumd">
+        select * from table_1
+    </select>
+</mapper>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>sdf</title>
+</head>
+<body>
+	<form id="formdata">
+		<input type="text" id="username" placeholder="请输入用户名" name="username" value="" /><span></span><br />
+		<input type="text" class="hava" placeholder="请输入年龄" name="age" value="" /><br />
+		<input type="password" class="hava" placeholder="请输入密码" name="password" value="" /><br />
+		<input type="file"  name="filename" multiple /><br />
+		<input type="button" id="btn" value="提交注册"/>
+	</form>
+</body>
+<script  src="js/jquery-3.4.1.min.js"></script>
+<script >
+	$(function () {
+		var btn = document.getElementById("btn");
+		btn.onclick = function () {
+			var formData = new FormData(document.getElementById("formdata"));
+			$.ajax({
+				url:"/regist",
+				type:"post",
+				data:formData,
+				dataType:"json",
+				contentType:false,
+				processData:false,
+				success:function (ret) {
+					console.log(ret);
+					location.href="main.html";
+				},
+				error:function () {
+					console.log(123)
+				}
+			})
+		}
+	})
+
+	/*处理用户名重名问题*/
+	$(".hava").focus(function () {
+		var username= $("#username").val();
+		if (username === ""){
+			alert("用户名不能为空");
+		}else{
+			$.ajax({
+				url:"/checkUser?username="+username,
+				type:"get",
+
+				dataType: "json",
+				success:function (response) {
+					/*给文字添加样式*/
+					if (response ==="用户名未注册"){
+                        /*给文字添加内容*/
+                        $("span").text(response);
+						$("span").css("color","green");
+					}else{
+                        //alert("用户名已注册");
+                        $("#username").val("");
+                        $(".hava").val("");
+                        $("span").html("");
+					}
+				}
+			})
+		}
+	})
+</script>
+</html>

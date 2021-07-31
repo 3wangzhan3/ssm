@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>sdf</title>
+</head>
+<body>
+	原数据：<br />
+	<input type="text" id="oldusername" value="" /><br />
+	<input type="text" id="oldage" value="" /><br />
+	<input type="text" id="oldpassword" value="" /><br />
+	修改的数据：<br />
+	<form id="formdata">
+		<input type="text" hidden="hidden" name="id" value="" /><br />
+		<input type="text" placeholder="请输入修改的姓名" name="username" value="" /><br />
+		<input type="text" placeholder="请输入修改的年龄" name="age" value="" /><br />
+		<input type="password" placeholder="请输入修改的密码" name="password" value="" /><br />
+		<input type="button" id="btn" value="确定修改"/>
+	</form>
+</body>
+<script  src="js/jquery-3.4.1.min.js"></script>
+<script >
+	$(function () {
+		/* 获取页面跳转资源路径上的参数 */
+		var id =location.href;
+		id=id.split("=")[1];
+		console.log(id);
+		$("input[name=id]").val(id);
+		/* 页面加载完成后，查询数据库填充原有数据 */
+		$.ajax({
+			url:"/one?id="+id,
+			type:"get",
+			success:function(ret){
+				$("input[id=oldusername]").val(ret.username);
+				$("input[id=oldage]").val(ret.age);
+				$("input[id=oldpassword]").val(ret.password);
+			}
+		});
+		/* 提交跟新的数据 */
+		var btn =document.getElementById("btn");
+		btn.onclick=function(){
+			var formdata = new FormData($("#formdata")[0]);
+			$.ajax({
+				url:"/update",
+				type:"post",
+				data:formdata,
+				dataType:"json",
+				contentType:false,
+				processData:false,
+				success:function(ret){
+					console.log(ret);
+					location.href="main.html";
+				}
+			})
+		}
+	})
+</script>
+</html>
