@@ -28,7 +28,7 @@
 		$("input[name=id]").val(id);
 		/* 页面加载完成后，查询数据库填充原有数据 */
 		$.ajax({
-			url:"/one?id="+id,
+			url:"/ssm/one?id="+id,
 			type:"get",
 			success:function(ret){
 				$("input[id=oldusername]").val(ret.username);
@@ -41,7 +41,7 @@
 		btn.onclick=function(){
 			var formdata = new FormData($("#formdata")[0]);
 			$.ajax({
-				url:"/update",
+				url:"/ssm/update",
 				type:"post",
 				data:formdata,
 				dataType:"json",

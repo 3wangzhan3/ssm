@@ -20,7 +20,7 @@
 		btn.onclick = function () {
 			var formData = new FormData(document.getElementById("formdata"));
 			$.ajax({
-				url:"/regist",
+				url:"/ssm/regist",
 				type:"post",
 				data:formData,
 				dataType:"json",
@@ -44,9 +44,8 @@
 			alert("用户名不能为空");
 		}else{
 			$.ajax({
-				url:"/checkUser?username="+username,
+				url:"/ssm/checkUser?username="+username,
 				type:"get",
-
 				dataType: "json",
 				success:function (response) {
 					/*给文字添加样式*/

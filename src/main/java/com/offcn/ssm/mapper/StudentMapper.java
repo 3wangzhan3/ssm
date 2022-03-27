@@ -2,6 +2,7 @@ package com.offcn.ssm.mapper;
 
 import com.offcn.ssm.pojo.BreadCrumd;
 import com.offcn.ssm.pojo.Student;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

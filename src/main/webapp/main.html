@@ -34,7 +34,7 @@
         $(function(){
             /*页面填充数据*/
         	$.ajax({
-        		url:"/list",
+        		url:"/ssm/list",
         		type:"get",
         		success:function(ret){
         			for(var i=0;i<ret.length;i++){
@@ -47,15 +47,15 @@
                                         "<td id='a'><a href='#' class='delete' >删除</a></td>"+
         								"</tr>");
         				//在标签中无法给属性赋变量值，可以通过改变对象的属性来为节点的属性赋变量值
-        				document.getElementsByClassName("delete")[i].href="/delete?id="+ret[i].id;
+        				document.getElementsByClassName("delete")[i].href="/ssm/delete?id="+ret[i].id;
         				//修改个人信息，简单理解：就是为a标签的href赋值
-						document.getElementsByClassName("update")[i].href="/upd.html?id="+ret[i].id;
+						document.getElementsByClassName("update")[i].href="/ssm/upd.html?id="+ret[i].id;
         			}
         		}
         	});
             /*获取当前登录的用户名*/
             $.ajax({
-                url:"/getUsername",
+                url:"/ssm/getUsername",
                 type:"get",
                 dataType:"json",
                 success:function (response) {

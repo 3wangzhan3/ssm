@@ -5,8 +5,10 @@ import com.offcn.ssm.pojo.BreadCrumd;
 import com.offcn.ssm.pojo.Student;
 import com.offcn.ssm.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
