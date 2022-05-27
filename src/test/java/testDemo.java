@@ -6,5 +6,7 @@ import java.net.URLEncoder;
 import java.lang.Character.UnicodeBlock;
 
 public class testDemo {
-
+    public static void main(String[] args) {
+        
+    }
 }
